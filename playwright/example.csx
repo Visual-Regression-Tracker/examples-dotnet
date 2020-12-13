@@ -14,7 +14,7 @@ using VisualRegressionTracker;
     var screenshot = await page.ScreenshotAsync();
 
     var vrt = new VisualRegressionTracker.VisualRegressionTracker();
-    await using var bob = await vrt.Start();
+    await using var cleanup = await vrt.Start();
     await vrt.Track("sdk-dotnet", screenshot);
 
     Console.WriteLine("Done");
