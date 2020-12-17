@@ -1,4 +1,4 @@
-#r "nuget: VisualRegressionTracker, 4.7.0-rc3"
+#r "nuget: VisualRegressionTracker, 4.7.0"
 #r "nuget: PlaywrightSharp, 0.162.1"
 
 using System;
