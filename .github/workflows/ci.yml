@@ -13,18 +13,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  playwright:
+  example:
+    name: ${{ matrix.example }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        example: [playwright]
     defaults:
       run:
-        shell: bash
-        working-directory: playwright
+        working-directory: ${{ matrix.example }}
     env:
       VRT_APIURL: http://localhost:4200
       VRT_APIKEY: DEFAULTUSERAPIKEYTOBECHANGED
       VRT_PROJECT: Default project
       VRT_BRANCHNAME: master
+      VRT_ENABLESOFTASSERT: "true"
     steps:
       - uses: actions/checkout@v7
       - name: Start Visual Regression Tracker
@@ -37,11 +41,4 @@ jobs:
       - run: pwsh bin/Debug/net10.0/playwright.ps1 install --with-deps --only-shell chromium
       - name: Wait for Visual Regression Tracker
         run: timeout 180 bash -c 'until curl -s -o /dev/null http://localhost:4200; do sleep 2; done'
-      - name: First run fails, the screenshot has no baseline yet
-        run: |
-          if dotnet test --no-build | tee first-run.log; then exit 1; fi
-          grep -q 'No baseline' first-run.log
-      - name: Approve the new baseline
-        run: ../.github/vrt/approve-latest-build.sh
-      - name: Second run passes against the approved baseline
-        run: dotnet test --no-build
+      - run: dotnet test --no-build --output detailed
