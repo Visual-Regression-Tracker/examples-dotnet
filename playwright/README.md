@@ -17,13 +17,14 @@
 ## Run
 
 ```sh
-dotnet test
+dotnet test --output detailed
 ```
 
 ## What to expect
 
-- First run: the test fails with `No baseline` and a link to the test run. The VRT UI shows a build with one `New` test run, "Home page".
-- Approve it in the UI. It becomes the baseline for the branch.
-- Next runs pass while the page looks the same (`Ok`). When it changes, the test fails with `Difference found` and the build shows an `Unresolved` test run with the diff. Approve the change to make it the new baseline, or reject it.
+`enableSoftAssert` is on, as in the other examples: the SDK writes a failed check to stderr instead of throwing, so the test passes and prints the status and a link to the test run.
 
-`New` and `Unresolved` fail the test; `Ok`, `Approved` and `AutoApproved` pass. With `enableSoftAssert`, the SDK writes the failure to stderr instead of throwing, and the status assertion in the test fails it.
+- First run: `New`, with `No baseline` on stderr. The VRT UI shows a build with one new test run, "Home page". Approve it to make it the baseline for the branch.
+- Next runs: `Ok` while the page looks the same. When it changes, `Unresolved`, with `Difference found` on stderr, and the build shows the diff to approve or reject.
+
+Set `enableSoftAssert` to `false` to make `New` and `Unresolved` fail the test.

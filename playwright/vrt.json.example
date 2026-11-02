@@ -3,5 +3,5 @@
   "apiKey": "DEFAULTUSERAPIKEYTOBECHANGED",
   "project": "Default project",
   "branchName": "master",
-  "enableSoftAssert": false
+  "enableSoftAssert": true
 }

@@ -1,9 +1,7 @@
-using VisualRegressionTracker;
-
 public class HomePageTests
 {
     [Test]
-    public async Task HomePageMatchesBaseline()
+    public async Task TrackHomePage()
     {
         await using var context = await TestSession.Browser.NewContextAsync();
         var page = await context.NewPageAsync();
@@ -17,6 +15,5 @@ public class HomePageTests
             viewport: $"{page.ViewportSize!.Width}x{page.ViewportSize.Height}");
 
         TestContext.Out.WriteLine($"{result.Status}: {result.Url}");
-        Assert.That(result.Status, Is.AnyOf(TestRunStatus.Ok, TestRunStatus.Approved, TestRunStatus.AutoApproved));
     }
 }
