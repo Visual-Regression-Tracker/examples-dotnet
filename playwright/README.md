@@ -10,9 +10,9 @@
 
 ## Setup
 
+- Copy `vrt.json.example` to `vrt.json` and set your connection, or use the [`VRT_*` environment variables](https://github.com/Visual-Regression-Tracker/sdk-dotnet#or-as-environment-variables), which override the file
 - Build the project: `dotnet build`
-- Install the browser: `pwsh bin/Debug/net10.0/playwright.ps1 install chromium`
-- Copy `vrt.json.example` to `vrt.json` and set your connection, or use `VRT_*` environment variables (`VRT_APIURL`, `VRT_APIKEY`, `VRT_PROJECT`, `VRT_BRANCHNAME`, `VRT_CIBUILDID`, `VRT_ENABLESOFTASSERT`), which override the file
+- Install the browser: `pwsh bin/Debug/net10.0/playwright.ps1 install --only-shell chromium`
 
 ## Run
 

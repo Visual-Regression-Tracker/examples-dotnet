@@ -15,6 +15,7 @@ concurrency:
 jobs:
   playwright:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: playwright
@@ -32,11 +33,13 @@ jobs:
         with:
           global-json-file: global.json
       - run: dotnet build
-      - run: pwsh bin/Debug/net10.0/playwright.ps1 install --with-deps chromium
+      - run: pwsh bin/Debug/net10.0/playwright.ps1 install --with-deps --only-shell chromium
       - name: Wait for Visual Regression Tracker
         run: timeout 180 bash -c 'until curl -s -o /dev/null http://localhost:4200; do sleep 2; done'
       - name: First run fails, the screenshot has no baseline yet
-        run: if dotnet test --no-build; then exit 1; fi
+        run: |
+          if dotnet test --no-build | tee first-run.log; then exit 1; fi
+          grep -q 'No baseline' first-run.log
       - name: Approve the new baseline
         run: ../.github/vrt/approve-latest-build.sh
       - name: Second run passes against the approved baseline

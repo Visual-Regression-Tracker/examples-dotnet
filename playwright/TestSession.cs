@@ -4,7 +4,7 @@ using Tracker = VisualRegressionTracker.VisualRegressionTracker;
 [SetUpFixture]
 public class TestSession
 {
-    private static IPlaywright playwright = null!;
+    private static IPlaywright? playwright;
 
     public static IBrowser Browser { get; private set; } = null!;
 
@@ -23,16 +23,21 @@ public class TestSession
     [OneTimeTearDown]
     public async Task Stop()
     {
-        if (Vrt?.IsStarted == true)
+        try
         {
-            await Vrt.Stop();
+            if (Vrt?.IsStarted == true)
+            {
+                await Vrt.Stop();
+            }
         }
-        Vrt?.Dispose();
-
-        if (Browser != null)
+        finally
         {
-            await Browser.CloseAsync();
+            Vrt?.Dispose();
+            if (Browser != null)
+            {
+                await Browser.CloseAsync();
+            }
+            playwright?.Dispose();
         }
-        playwright?.Dispose();
     }
 }
