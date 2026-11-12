@@ -1,6 +1,6 @@
 # Visual Regression Tracker examples for .NET
 
-Each folder is a separate project with its own `.csproj`, `vrt.json.example` and README, on [sdk-dotnet](https://github.com/Visual-Regression-Tracker/sdk-dotnet) 5.0.0 from NuGet and .NET 10. The examples open https://the-internet.herokuapp.com headless and track screenshots in a [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) 6.0 server.
+Each folder is a separate project with its own `.csproj`, `vrt.json.example` and README, on [sdk-dotnet](https://github.com/Visual-Regression-Tracker/sdk-dotnet) 6.0.0 from NuGet and .NET 10. The examples open https://the-internet.herokuapp.com headless and track screenshots in a [Visual Regression Tracker](https://github.com/Visual-Regression-Tracker/Visual-Regression-Tracker) 6.0 server.
 
 | Example                  | Stack                      | Client                                                                |
 | ------------------------ | -------------------------- | --------------------------------------------------------------------- |
